@@ -1,9 +1,13 @@
 package Form;
 
+import Util.FullBean;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by sun38 on 10/22/2015.
  */
-public class LoginForm implements Comparable{
+public class LoginForm extends ActionForm implements Comparable {
     private String username = "";
     private String password = "";
     public LoginForm(){}
@@ -56,4 +60,5 @@ public class LoginForm implements Comparable{
     public int compareTo(Object o) {
         return 0;
     }
+
 }

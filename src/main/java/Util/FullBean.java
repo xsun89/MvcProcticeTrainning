@@ -1,5 +1,7 @@
 package Util;
 
+import Form.ActionForm;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 
@@ -7,11 +9,12 @@ import java.lang.reflect.Field;
  * Created by sun38 on 10/22/2015.
  */
 public class FullBean {
-    public static Object getFullBean(String className, HttpServletRequest request) throws ClassNotFoundException {
-        Object o = null;
+    public static ActionForm getFullBean(HttpServletRequest request) throws ClassNotFoundException {
+        ActionForm o = null;
         try {
+            String className = request.getParameter("sign");
             Class clazz = Class.forName(className);
-            o = clazz.newInstance();
+            o = (ActionForm)clazz.newInstance();
             Field[] fields = clazz.getDeclaredFields();
             for(Field f: fields){
                 f.setAccessible(true);
