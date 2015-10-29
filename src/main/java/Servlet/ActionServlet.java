@@ -4,11 +4,13 @@ import Action.Action;
 import Form.ActionForm;
 import Form.LoginForm;
 import Form.RegisterForm;
+import Util.ActionFomMap;
 import Util.FullBean;
 import Action.LoginAction;
 import Action.RegisterAction;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by sun38 on 10/22/2015.
@@ -18,12 +20,9 @@ public class ActionServlet extends javax.servlet.http.HttpServlet {
         try {
             String value = request.getParameter("sign");
             ActionForm form = FullBean.getFullBean(request);
-            Action act = null;
-            if(value.equals("Form.RegisterForm")){
-                act = new RegisterAction();
-            }else if(value.equals("Form.LoginForm")){
-                act = new LoginAction();
-            }
+            Map<String, String> map = ActionFomMap.getActionByForm();
+            Class clazz = Class.forName(map.get(value));
+            Action act = (Action)clazz.newInstance();
             String ret = act.execute(form);
             System.out.println(ret);
         } catch (Exception e) {
